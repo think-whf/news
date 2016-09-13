@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html ng-app = "myApp">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+	<title>Document</title>
+	<script src="js/angular.js"></script>
+	<style>
+		a{
+			display: block;
+			position: absolute;
+			height:40px;
+			width:100%;
+			top:0;
+		}
+		div{
+			position: relative;
+		}
+	</style>
+</head>
+<body ng-controller="indexCrtl">
+	<div ng-repeat = "data in dataArr">
+		<p>{{data.title}}</p>
+		<img ng-src="{{data.imgsrc}}">
+		<a href="{{data.url}}"></a>
+	</div>
+	
+</body>
+	<script>
+		var app = angular.module('myApp',[]);
+		
+		app.controller('indexCrtl',["$scope","$http",function($scope,$http){
+			$http.jsonp('http://127.0.0.1:8765/news.js/index',{
+				params : {
+					num : 40,
+					callback : 'JSON_CALLBACK'
+				}
+			}).success(function(data){
+				console.log(data);
+				//$scope.dataArr = data.BA8J7DG9wangning
+			})
+		}])
+	</script>
+</html>
